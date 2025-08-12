@@ -134,7 +134,134 @@ public class Parser {
     }
 
     private boolean E() {
+        int save = this.next;
+
+        this.next = save;
+        if (A()) {return true; }
+
+        this.next = save;
+        if (B()) {return true; }
+
         return false;
+    }
+
+    private boolean B() {
+        int save = this.next;
+
+        this.next = save;
+        if (B1()) {return true; }
+
+        this.next = save;
+        if (B2()) {return true; }
+
+        return false;
+    }
+
+    private boolean B1() {
+        return term(Token.PLUS) && A() && B();
+    }
+
+    private boolean B2() {
+        return term(Token.MINUS) && A() && B();
+    }
+
+    private boolean A() {
+        int save = this.next;
+
+        this.next = save;
+        if (P()) {return true; }
+
+        this.next = save;
+        if (W()) {return true; }
+
+        return false;
+    }
+
+    private boolean W() {
+        int save = this.next;
+
+        this.next = save;
+        if (W1()) {return true; }
+
+        this.next = save;
+        if (W2()) {return true; }
+        
+        this.next = save;
+        if (W3()) {return true; }
+
+        return false;
+    }
+
+    private boolean W1() {
+        return term(Token.MULT) && P() && W();
+    }
+
+    private boolean W2() {
+        return term(Token.DIV) && P() && W();
+    }
+
+    private boolean W3() {
+        return term(Token.MOD) && P() && W();
+    }
+
+    private boolean P() {
+        int save = this.next;
+
+        this.next = save;
+        if (P1()) {return true; }
+
+        this.next = save;
+        if (P2()) {return true; }
+
+        return false;
+    }
+
+    private boolean P1() {
+        return U() && term(Token.EXP) && P();
+    }
+
+    private boolean P2() {
+        return U();
+    }
+
+    private boolean U() {
+        int save = this.next;
+
+        this.next = save;
+        if (U1()) {return true; }
+
+        this.next = save;
+        if (U2()) {return true; }
+
+        return false;
+    }
+
+    private boolean U1() {
+        return term(Token.UNARY) && U();
+    }
+
+    private boolean U2() {
+        return F();
+    }
+
+    private boolean F() {
+        int save = this.next;
+
+        this.next = save;
+        if (F1()) {return true; }
+
+        this.next = save;
+        if (F2()) {return true; }
+
+        return false;
+    }
+
+    private boolean F1() {
+        return term(Token.NUMBER);
+    }
+
+    private boolean F2() {
+        return term(Token.LPAREN) && A() && term(Token.RPAREN);
     }
 
     /* TODO: sus otras funciones aqui */
