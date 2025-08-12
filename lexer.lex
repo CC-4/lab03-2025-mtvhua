@@ -109,7 +109,7 @@ WHITE = (" "|\t|\n)
 
 <YYINITIAL>")"   { return new Token(Token.RPAREN);   }
 
-<YYINITIAL>"error"   { return new Token(Token.ERROR);   }
+<YYINITIAL>"ERROR"   { return new Token(Token.ERROR);   }
 
 <YYINITIAL>"~"   { return new Token(Token.UNARY);   }
 
